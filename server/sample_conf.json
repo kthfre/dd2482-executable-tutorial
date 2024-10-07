@@ -1,0 +1,8 @@
+{
+    "EPOCHS": 1,
+    "BATCH_SIZE": 10,
+    "LEARNING_RATE": [0.001, 0.002],
+    "KERNEL_SIZE": [3],
+    "NUM_FILTERS": [20],
+    "DENSE_WIDTH": [128]
+}
