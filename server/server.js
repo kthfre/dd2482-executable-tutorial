@@ -283,12 +283,14 @@ socketServer.on("connection", socket => {
   });
 
   socket.on("close", () => {
-    const {isNotebook, key} = handleDisconnect(socket);
-    setTimeout(() => {
-      currentJobs[key] = null;
-    }, 5000);
-    if (isNotebook && sockets.modelStore) {
-      sockets.modelStore.send(JSON.stringify({event: "notebook_disconnect", id: key}));
+    const socketStatus = handleDisconnect(socket);
+    
+    if (socketStatus && socketStatus.isNotebook && sockets.modelStore) {
+      setTimeout(() => {
+        currentJobs[socketStatus.key] = null;
+      }, 5000);
+
+      sockets.modelStore.send(JSON.stringify({event: "notebook_disconnect", id: socketStatus.key}));
     }
   });
 });
